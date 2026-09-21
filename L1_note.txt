@@ -1,8 +1,34 @@
-Physical explanation:
-The band-edge and Fermi-referenced models use the same linear density of states and finite-temperature Fermi function, but different lower integration limits. The band-edge model integrates from the Dirac point E = 0, while the Fermi-referenced model starts from the current Fermi level EF. As EF increases with positive doping, the band-edge model includes an increasing number of occupied states between 0 and EF, so the correction factor C = n_band / n_Fermi increases.
+Physical explanation
 
-Operating-point result:
-At EF = 0.09875 eV, n_band = 8.35e11 cm^-2 and n_Fermi = 3.25e11 cm^-2, giving C = 2.570. Thus, the band-edge model overestimates the carrier density by a factor of 2.57. Since mu = 1/(e n rho) at fixed sheet resistivity, the mobility is underestimated by the same factor: 2.44e4 cm^2 V^-1 s^-1 becomes 6.27e4 cm^2 V^-1 s^-1 after correction.
+The band-edge and Fermi-referenced models use the same linear
+density of states and finite-temperature Fermi function, but
+different lower integration limits. The band-edge model integrates
+from the Dirac point E = 0, whereas the Fermi-referenced model starts
+from the current Fermi level EF.
 
-Quantified advice:
-For G07 sensor benchmarking at the operating point, use the Fermi-referenced carrier count; the band-edge model overestimates carrier density by 2.57x and underestimates the extracted mobility by 2.57x.
+As positive doping increases EF, the band-edge model includes an
+increasing number of occupied states between E = 0 and E = EF.
+Therefore, the correction factor C = n_band / n_Fermi increases
+with doping.
+
+Operating-point result
+
+At EF = 0.09875 eV:
+n_band = 8.35e11 cm^-2
+n_Fermi = 3.25e11 cm^-2
+C = 2.570
+
+Therefore, the band-edge model overestimates carrier density by
+a factor of 2.57.
+
+Since mu = 1/(e n rho) and rho is fixed, the extracted mobility is
+underestimated by the same factor:
+mu_band = 2.44e4 cm^2 V^-1 s^-1
+mu_corrected = 6.27e4 cm^2 V^-1 s^-1
+
+Quantified advice
+
+For G07 sensor benchmarking at the operating point, the
+Fermi-referenced carrier count should be used because the band-edge
+model overestimates carrier density by 2.57x and underestimates the
+extracted mobility by 2.57x.
