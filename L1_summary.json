@@ -1,0 +1,22 @@
+{
+  "group": "G07",
+  "dataset_set": "regular",
+  "EF_op_eV": 0.0987459454382751,
+  "rho_ohm_sq": 306.4594269061562,
+  "n_band_op_cm2": 835387988463.5802,
+  "n_fermi_op_cm2": 325054226388.7513,
+  "correction_factor": 2.5699957749956805,
+  "mobility_band_cm2_Vs": 24379.702103390115,
+  "mobility_corrected_cm2_Vs": 62655.7314013659,
+  "mobility_ratio_corrected_to_band": 2.5699957749956805,
+  "EF_at_C2_eV": 0.07276188988471405,
+  "EF_at_C4_eV": 0.15734690712997687,
+  "max_closed_form_relative_error": 4.021241117657347e-07,
+  "max_supplied_band_relative_error": 3.024554015531728e-12,
+  "gate_values": {
+    "0.0": 1.0,
+    "0.073": 2.004939691363629,
+    "0.1": 2.5988451611494265,
+    "0.2": 5.104373571868877
+  }
+}
