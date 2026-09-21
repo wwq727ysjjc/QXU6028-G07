@@ -176,24 +176,25 @@ def analyse(data_dir: Path, output_dir: Path) -> dict:
 
     results = json.loads(template_path.read_text(encoding="utf-8"))
 
-pipeline_commit = get_git_commit(data_dir)
+    pipeline_commit = get_git_commit(data_dir)
 
-results["pipeline_commit"] = pipeline_commit
+    results["pipeline_commit"] = pipeline_commit
 
-results["L1"] = {
-    "correction_factor": C_op,
-    "n_fermi_op_cm2": n_fermi_op,
-    "mobility_corrected_cm2_Vs": mobility_corrected,
-}
+    results["L1"] = {
+        "correction_factor": C_op,
+        "n_fermi_op_cm2": n_fermi_op,
+        "mobility_corrected_cm2_Vs": mobility_corrected,
+    }
 
     (output_dir / "results.json").write_text(
-        json.dumps(results, indent=2) + "\n", encoding="utf-8"
+        json.dumps(results, indent=2) + "\n",
+        encoding="utf-8"
     )
 
     (output_dir / "commit_hash.txt").write_text(
-    pipeline_commit + "\n",
-    encoding="utf-8"
-)
+        pipeline_commit + "\n",
+        encoding="utf-8"
+    )
 
     summary = {
         "group": "G07",
@@ -210,18 +211,37 @@ results["L1"] = {
         "EF_at_C4_eV": EF_C4,
         "max_closed_form_relative_error": float(closed_rel_error),
         "max_supplied_band_relative_error": float(supplied_band_rel_error),
-        "gate_values": dict(zip([str(x) for x in gate_EF], gate_calculated.tolist())),
+        "gate_values": dict(
+            zip([str(x) for x in gate_EF], gate_calculated.tolist())
+        ),
     }
+
     (output_dir / "L1_summary.json").write_text(
-        json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+        json.dumps(summary, indent=2) + "\n",
+        encoding="utf-8"
     )
 
     # Supplied sweep values are shown as data markers; the continuous integral model
     # is used for the smooth curve, exact operating point, and root-found crossings.
-    EF_dense = np.linspace(0.0, max(0.22, float(l1["EF_eV"].max())), 350)
-    C_dense = np.array([correction_factor(x, T, c) for x in EF_dense])
+    EF_dense = np.linspace(
+        0.0,
+        max(0.22, float(l1["EF_eV"].max())),
+        350
+    )
+    C_dense = np.array(
+        [correction_factor(x, T, c) for x in EF_dense]
+    )
+
     fig, ax = plt.subplots(figsize=(8.2, 5.2))
-    ax.plot(EF_dense, C_dense, color="#1f77b4", linewidth=2.0, label="Integral model")
+
+    ax.plot(
+        EF_dense,
+        C_dense,
+        color="#1f77b4",
+        linewidth=2.0,
+        label="Integral model"
+    )
+
     ax.scatter(
         l1["EF_eV"],
         l1["correction_factor"],
@@ -231,9 +251,23 @@ results["L1"] = {
         zorder=3,
         label="Supplied G07 sweep",
     )
-    for target, crossing, color in [(2.0, EF_C2, "#d95f02"), (4.0, EF_C4, "#7570b3")]:
-        ax.axhline(target, color=color, linestyle="--", linewidth=1.1)
-        ax.axvline(crossing, color=color, linestyle=":", linewidth=1.2)
+
+    for target, crossing, color in [
+        (2.0, EF_C2, "#d95f02"),
+        (4.0, EF_C4, "#7570b3")
+    ]:
+        ax.axhline(
+            target,
+            color=color,
+            linestyle="--",
+            linewidth=1.1
+        )
+        ax.axvline(
+            crossing,
+            color=color,
+            linestyle=":",
+            linewidth=1.2
+        )
         ax.annotate(
             f"C={target:g} at $E_F$={crossing:.4f} eV",
             xy=(crossing, target),
@@ -242,6 +276,7 @@ results["L1"] = {
             fontsize=9,
             color=color,
         )
+
     ax.scatter(
         [EF_op],
         [C_op],
@@ -253,6 +288,7 @@ results["L1"] = {
         zorder=5,
         label=f"Operating point: {EF_op:.4f} eV, C={C_op:.3f}",
     )
+
     ax.set_xlabel(r"Fermi level $E_F$ (eV)")
     ax.set_ylabel(r"Correction factor $C=n_{band}/n_F$")
     ax.set_title("Group 7 L1 carrier-count correction")
@@ -260,10 +296,17 @@ results["L1"] = {
     ax.set_ylim(bottom=0.8)
     ax.grid(alpha=0.25)
     ax.legend(loc="upper left", frameon=True)
+
     fig.tight_layout()
-    fig.savefig(output_dir / "L1_correction_factor.png", dpi=300)
-    fig.savefig(output_dir / "L1_correction_factor.pdf")
+    fig.savefig(
+        output_dir / "L1_correction_factor.png",
+        dpi=300
+    )
+    fig.savefig(
+        output_dir / "L1_correction_factor.pdf"
+    )
     plt.close(fig)
+
     return summary
 
 
