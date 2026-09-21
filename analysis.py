@@ -3,6 +3,7 @@ import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import subprocess
 
 base = Path(__file__).resolve().parent
 l1 = pd.read_csv(base / "L1_data.csv")
@@ -134,6 +135,12 @@ plt.savefig(
 plt.show()
 
 # results.json
+pipeline_commit = subprocess.check_output(
+    ["git", "rev-parse", "HEAD"],
+    text=True
+).strip()
+
+results["pipeline_commit"] = pipeline_commit
 results["L1"]["correction_factor"] = float(correction_factor_op)
 results["L1"]["n_fermi_op_cm2"] = float(n_fermi_op)
 results["L1"]["mobility_corrected_cm2_Vs"] = float(mobility_corrected)
