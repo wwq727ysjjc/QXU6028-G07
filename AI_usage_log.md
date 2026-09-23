@@ -29,3 +29,13 @@ the nearest CSV row.
 AI assisted with explanation and initial coding structure. Numerical
 execution, gate checking, interpretation and repository setup were
 performed and checked by the student/group.
+
+## L2 inverse analysis — 2026-09-23
+
+**Tool:** ChatGPT (GPT-5.6 Sol)
+
+**Purpose:** Assisted with implementation and checking of the L2 zero-dimensional inverse analysis, including repeat averaging, independent normalisation of R_H and R_xx, Hall zero-crossing checks, cone and hard-gap model generation, nearest-curve fitting, the 15% model-selection rule, bootstrap uncertainty analysis, Fermi-level trajectory plotting, and integration of L2 into reproduce.py.
+
+**Verification:** All code was run locally on the untouched G07 data. The Hall zero-crossing remained between measurement indices 19 and 20 after normalisation. The central fit selected the cone model with Eg/kBT = 0. The best hard-gap candidate was Eg/kBT = 0.75 but was below the 1 kBT resolution threshold. A 200-replicate bootstrap with seed 6028 selected a hard gap in 23/200 replicates. The final reproduce.py run regenerated the L1 and L2 outputs successfully.
+
+**Extent:** AI assisted with code structure, debugging, interpretation and figure/checkpoint preparation. Numerical results were generated and verified by the committed local Python pipeline rather than entered manually.
