@@ -1,0 +1,10 @@
+{
+  "bootstrap_seed": 6028,
+  "bootstrap_replicates": 200,
+  "central_model": "cone",
+  "central_Eg_kT": 0.0,
+  "Eg_bootstrap_median_kT": 0.0,
+  "Eg_bootstrap_p16_kT": 0.0,
+  "Eg_bootstrap_p84_kT": 0.0,
+  "hard_gap_selection_fraction": 0.115
+}
