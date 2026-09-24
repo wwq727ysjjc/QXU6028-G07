@@ -53,6 +53,21 @@ def main():
 
     print("\nG07 L2 reproduced successfully.")
 
+    # --------------------------------------------------
+    # L3
+    # --------------------------------------------------
+    print("\n=== Reproducing G07 L3 ===")
+
+    subprocess.run(
+        [
+            sys.executable,
+            str(root / "l3_analysis.py"),
+        ],
+        cwd=root,
+        check=True,
+    )
+
+    print("\nG07 L3 reproduced successfully.")
 
 if __name__ == "__main__":
     main()

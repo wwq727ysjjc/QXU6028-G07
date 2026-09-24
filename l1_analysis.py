@@ -109,8 +109,8 @@ def analyse(data_dir: Path, output_dir: Path) -> dict:
         raise ValueError(f"L1_data.csv must contain {sorted(required_columns)}")
 
     params = json.loads(params_path.read_text(encoding="utf-8"))
-    if params.get("group") != "G07" or params.get("dataset_set") != "regular":
-        raise ValueError("Refusing to run: inputs are not the regular Group 7 dataset")
+    if params.get("group") != "G07" or params.get("dataset_set") not in {"regular", "blind"}:
+        raise ValueError("Refusing to run: inputs are not a valid Group 7 dataset")
 
     c = float(params["c"])
     T = float(params["T"])
