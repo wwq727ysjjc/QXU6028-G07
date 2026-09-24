@@ -176,6 +176,9 @@ def analyse(data_dir: Path, output_dir: Path) -> dict:
 
     results = json.loads(template_path.read_text(encoding="utf-8"))
 
+    results["group"] = params["group"]
+    results["dataset_set"] = params["dataset_set"]
+
     pipeline_commit = get_git_commit(data_dir)
 
     results["pipeline_commit"] = pipeline_commit

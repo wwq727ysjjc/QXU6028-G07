@@ -1,6 +1,7 @@
 """One-command entry point for the Group 7 analysis."""
 
 from pathlib import Path
+import json
 import subprocess
 import sys
 
@@ -68,6 +69,34 @@ def main():
     )
 
     print("\nG07 L3 reproduced successfully.")
+
+        # --------------------------------------------------
+    # Blind-test output
+    # --------------------------------------------------
+    params = json.loads(
+        (root / "L1_params.json").read_text(encoding="utf-8")
+    )
+
+    if params.get("dataset_set") == "blind":
+        results_path = root / "results.json"
+        blind_results_path = root / "blind_results.json"
+
+        results_path.replace(blind_results_path)
+
+        pipeline_commit = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=root,
+            text=True,
+        ).strip()
+
+        (root / "pipeline_commit.txt").write_text(
+            pipeline_commit + "\n",
+            encoding="utf-8",
+        )
+
+        print("\nBlind-test outputs prepared.")
+        print("Saved: blind_results.json")
+        print("Saved: pipeline_commit.txt")
 
 if __name__ == "__main__":
     main()
